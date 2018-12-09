@@ -1,7 +1,7 @@
 package service;
 
+import app.App;
 import model.Account;
-import test.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +16,7 @@ public class AccountService {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			account.setBalance(account.getBalance() + amount);
-			Test.getTransactionService().addTransactions(account, amount, dtf.format(now) + " Received: " + Double.toString(amount) + " EUR from " + from);
+			App.getTransactionService().addTransactions(account, amount, dtf.format(now) + " Received: " + Double.toString(amount) + " EUR from " + from);
 		}
 	}
 
@@ -26,7 +26,7 @@ public class AccountService {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			account.setBalance(account.getBalance() - amount);
-			Test.getTransactionService().addTransactions(account, amount, dtf.format(now) + " Sent: " + Double.toString(amount) + " EUR to " + to);
+			App.getTransactionService().addTransactions(account, amount, dtf.format(now) + " Sent: " + Double.toString(amount) + " EUR to " + to);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class AccountService {
 	}
 
 	public Account getAccountById(Integer accountId) {
-		List<Account> accountList = Test.getAccountList();
+		List<Account> accountList = App.getAccountList();
 		Optional<Account> optional = accountList.stream().filter(a -> a.getAccountId() == accountId).findAny();
 		return optional.get();
 	}
